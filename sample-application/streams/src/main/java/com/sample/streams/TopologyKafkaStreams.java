@@ -53,7 +53,7 @@ public class TopologyKafkaStreams {
         inputTopic = System.getenv().getOrDefault("INPUT_TOPIC","sample");
 
         final Integer numberOfPartitions =  Integer.valueOf(System.getenv().getOrDefault("NUMBER_OF_PARTITIONS","2"));
-        final Short replicationFactor =  Short.valueOf(System.getenv().getOrDefault("REPLICATION_FACTOR","3"));
+        final Short replicationFactor =  Short.valueOf(System.getenv().getOrDefault("REPLICATION_FACTOR","-1"));
 
         AdminClient adminClient = KafkaAdminClient.create(properties);
         createTopic(adminClient, inputTopic, numberOfPartitions, replicationFactor);
@@ -71,7 +71,8 @@ public class TopologyKafkaStreams {
             StreamsConfig.APPLICATION_ID_CONFIG, System.getenv().getOrDefault("APPLICATION_ID","sample-streams2"),
             StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.StringSerde.class,
             StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.FloatSerde.class,
-            StreamsConfig.REPLICATION_FACTOR_CONFIG, "3",
+            StreamsConfig.REPLICATION_FACTOR_CONFIG, "-1",
+            "min.insync.replicas", "3",
             ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest",
             KafkaAvroSerializerConfig.AUTO_REGISTER_SCHEMAS, "true",
             KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081"

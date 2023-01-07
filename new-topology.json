@@ -1,0 +1,1 @@
+{"version": 2,"replicas": [{"count": 2, "constraints": {"rack": "wr"}},{"count": 1, "constraints": {"rack": "wo"}}], "observers": [{"count": 2, "constraints":{ "rack":"er"}},{"count": 1, "constraints":{ "rack":"eo"}}] }
